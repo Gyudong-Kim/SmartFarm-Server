@@ -1,0 +1,4387 @@
+[
+    {
+        "id": "2abf337b10e71ef9",
+        "type": "tab",
+        "label": "애그유니 서버",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "35c435c78ef1e4ab",
+        "type": "comment",
+        "z": "2abf337b10e71ef9",
+        "name": "내부 환경 데이터 수신",
+        "info": "",
+        "x": 150,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "443c5f913cd90892",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 5,
+        "width": 5,
+        "height": 1,
+        "name": "",
+        "label": "습도",
+        "format": "{{msg.payload.humi}}%",
+        "layout": "row-spread",
+        "className": "",
+        "x": 350,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "321e21957f68e0f6",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 4,
+        "width": 5,
+        "height": 1,
+        "name": "",
+        "label": "온도",
+        "format": "{{msg.payload.temp}}℃",
+        "layout": "row-spread",
+        "className": "",
+        "x": 350,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "c9055942eae8035a",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 6,
+        "width": 5,
+        "height": 1,
+        "name": "",
+        "label": "CO2",
+        "format": "{{msg.payload.co2}}ppm",
+        "layout": "row-spread",
+        "className": "",
+        "x": 350,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "eb3e323286946170",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 13,
+        "width": 5,
+        "height": 1,
+        "name": "",
+        "label": "토양 EC [1]",
+        "format": "{{msg.payload.soilEc}}ds/m",
+        "layout": "row-spread",
+        "className": "",
+        "x": 550,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "aae7b09cdcf4e237",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 11,
+        "width": 5,
+        "height": 1,
+        "name": "",
+        "label": "토양 온도 [1]",
+        "format": "{{msg.payload.soilTemp}}℃",
+        "layout": "row-spread",
+        "className": "",
+        "x": 550,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "ef9f40572fa166c5",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 12,
+        "width": 5,
+        "height": 1,
+        "name": "",
+        "label": "토양 수분함수율 [1]",
+        "format": "{{msg.payload.soilHumi}}%",
+        "layout": "row-spread",
+        "className": "",
+        "x": 570,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "82af3b5e02d01d65",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 18,
+        "width": 5,
+        "height": 1,
+        "name": "",
+        "label": "토양 온도 [2]",
+        "format": "{{msg.payload.soilTemp}}℃",
+        "layout": "row-spread",
+        "className": "",
+        "x": 790,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "849f610b71eb380f",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 19,
+        "width": 5,
+        "height": 1,
+        "name": "",
+        "label": "토양 수분함수율 [2]",
+        "format": "{{msg.payload.soilHumi}}%",
+        "layout": "row-spread",
+        "className": "",
+        "x": 810,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "d548f7226d441d74",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 20,
+        "width": 5,
+        "height": 1,
+        "name": "",
+        "label": "토양 EC [2]",
+        "format": "{{msg.payload.soilEc}}ds/m",
+        "layout": "row-spread",
+        "className": "",
+        "x": 790,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "a60ee3e74f1159a8",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "Query",
+        "func": "// 환경 데이터 배열에 저장\nmsg.payload = [\n    msg.payload.temp,\n    msg.payload.humi,\n    msg.payload.co2,\n    msg.time,\n];\n\n\n// 환경 데이터 저장\nmsg.topic = \"INSERT INTO environment_data (temp, humi, co2, time) VALUES(?, ?, ?, ?);\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 320,
+        "wires": [
+            [
+                "538d44d07eb946f2"
+            ]
+        ]
+    },
+    {
+        "id": "538d44d07eb946f2",
+        "type": "mysql",
+        "z": "2abf337b10e71ef9",
+        "mydb": "ca17075f8d3b3c1e",
+        "name": "DB",
+        "x": 690,
+        "y": 320,
+        "wires": [
+            [
+                "b65654935b7dfb56"
+            ]
+        ]
+    },
+    {
+        "id": "735614fbfbb00b62",
+        "type": "moment",
+        "z": "2abf337b10e71ef9",
+        "name": "현재 시간",
+        "topic": "",
+        "input": "",
+        "inputType": "date",
+        "inTz": "Asia/Seoul",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "YYYY-MM-DD HH:mm:00",
+        "locale": "ko-KR",
+        "output": "time",
+        "outputType": "msg",
+        "outTz": "Asia/Seoul",
+        "x": 360,
+        "y": 320,
+        "wires": [
+            [
+                "a60ee3e74f1159a8"
+            ]
+        ]
+    },
+    {
+        "id": "b65654935b7dfb56",
+        "type": "debug",
+        "z": "2abf337b10e71ef9",
+        "name": "환경 데이터 DB 저장 (debug)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "1cba8517300f7ea7",
+        "type": "comment",
+        "z": "2abf337b10e71ef9",
+        "name": "그래프",
+        "info": "",
+        "x": 110,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "6b35efb19af31b8e",
+        "type": "inject",
+        "z": "2abf337b10e71ef9",
+        "name": "그래프 갱신 (10분 간격)",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "*/10 0-23 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 960,
+        "wires": [
+            [
+                "1fecb8b163e959b3",
+                "729d2ff4304c98c6",
+                "ce5e686a7321b01c"
+            ]
+        ]
+    },
+    {
+        "id": "6b944820d3ca74b8",
+        "type": "mysql",
+        "z": "2abf337b10e71ef9",
+        "mydb": "ca17075f8d3b3c1e",
+        "name": "DB",
+        "x": 590,
+        "y": 960,
+        "wires": [
+            [
+                "87b4b2840b9ebcc6",
+                "e1b541562ae2fa31",
+                "70ee74c78e6606ac",
+                "ac0a97770932adf4"
+            ]
+        ]
+    },
+    {
+        "id": "1fecb8b163e959b3",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "환경 데이터 검색",
+        "func": "msg.topic = \"SELECT AVG(temp) AS temp, AVG(humi) AS humi, AVG(co2) AS co2, DATE_FORMAT(time, '%H:%i') AS time FROM environment_data WHERE time >= DATE_ADD(now(), INTERVAL -24 HOUR) GROUP BY MONTH(time), DAY(time), HOUR(time);\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 960,
+        "wires": [
+            [
+                "6b944820d3ca74b8"
+            ]
+        ]
+    },
+    {
+        "id": "87b4b2840b9ebcc6",
+        "type": "debug",
+        "z": "2abf337b10e71ef9",
+        "name": "환경 데이터 검색 (debug)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "d52510faf1958f59",
+        "type": "ui_chart",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "group": "bd968ba9a2eb742c",
+        "order": 59,
+        "width": 10,
+        "height": 6,
+        "label": "온도",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "60",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 950,
+        "y": 960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e1b541562ae2fa31",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "온도 데이터",
+        "func": "var data = [];\nvar time = [];\nmsg.payload.forEach(function (value) {\n    data.push(value['temp']);\n    time.push(value['time']);\n});\n\nmsg.payload = [{\n    series: [\"온도\"],\n    data: [data],\n    labels: time,\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 960,
+        "wires": [
+            [
+                "d52510faf1958f59"
+            ]
+        ]
+    },
+    {
+        "id": "70ee74c78e6606ac",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "습도 데이터",
+        "func": "var data = [];\nvar time = [];\nmsg.payload.forEach(function (value) {\n    data.push(value['humi']);\n    time.push(value['time']);\n});\n\nmsg.payload = [{\n    series: [\"습도\"],\n    data: [data],\n    labels: time\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 1020,
+        "wires": [
+            [
+                "819364bbf05b91bf"
+            ]
+        ]
+    },
+    {
+        "id": "ac0a97770932adf4",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "CO2 데이터",
+        "func": "var data = [];\nvar time = [];\nmsg.payload.forEach(function (value) {\n    data.push(value['co2']);\n    time.push(value['time']);\n});\n\nmsg.payload = [{\n    series: [\"CO2\"],\n    data: [data],\n    labels: time\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 1080,
+        "wires": [
+            [
+                "80bb7baec149ebf3"
+            ]
+        ]
+    },
+    {
+        "id": "819364bbf05b91bf",
+        "type": "ui_chart",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "group": "bd968ba9a2eb742c",
+        "order": 61,
+        "width": 10,
+        "height": 6,
+        "label": "습도",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 950,
+        "y": 1020,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "80bb7baec149ebf3",
+        "type": "ui_chart",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "group": "bd968ba9a2eb742c",
+        "order": 63,
+        "width": 10,
+        "height": 6,
+        "label": "CO2",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "5000",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 950,
+        "y": 1080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7458b8b91f08f398",
+        "type": "mqtt in",
+        "z": "2abf337b10e71ef9",
+        "name": "내부 환경 데이터 수신",
+        "topic": "environment_data",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "e02759af78813ba7",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "321e21957f68e0f6",
+                "443c5f913cd90892",
+                "c9055942eae8035a",
+                "735614fbfbb00b62"
+            ]
+        ]
+    },
+    {
+        "id": "6b41527a8804a0a0",
+        "type": "comment",
+        "z": "2abf337b10e71ef9",
+        "name": "재배기 데이터 수신",
+        "info": "",
+        "x": 140,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "bd6c4c45cbca0bf2",
+        "type": "mqtt in",
+        "z": "2abf337b10e71ef9",
+        "name": "재배기 데이터 수신",
+        "topic": "cultivator_data",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "e02759af78813ba7",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 460,
+        "wires": [
+            [
+                "52805483c8e8dc25",
+                "5b0ea34c95dd5e5a"
+            ]
+        ]
+    },
+    {
+        "id": "52805483c8e8dc25",
+        "type": "switch",
+        "z": "2abf337b10e71ef9",
+        "name": "재배기 분류",
+        "property": "payload.idx",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 350,
+        "y": 460,
+        "wires": [
+            [
+                "aae7b09cdcf4e237",
+                "ef9f40572fa166c5",
+                "eb3e323286946170"
+            ],
+            [
+                "82af3b5e02d01d65",
+                "849f610b71eb380f",
+                "d548f7226d441d74"
+            ]
+        ]
+    },
+    {
+        "id": "5b0ea34c95dd5e5a",
+        "type": "moment",
+        "z": "2abf337b10e71ef9",
+        "name": "현재 시간",
+        "topic": "",
+        "input": "",
+        "inputType": "date",
+        "inTz": "Asia/Seoul",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "YYYY-MM-DD HH:mm:00",
+        "locale": "ko-KR",
+        "output": "time",
+        "outputType": "msg",
+        "outTz": "Asia/Seoul",
+        "x": 340,
+        "y": 640,
+        "wires": [
+            [
+                "9df0171a975a4860"
+            ]
+        ]
+    },
+    {
+        "id": "9df0171a975a4860",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "Query",
+        "func": "// 환경 데이터 배열에 저장\nmsg.payload = [\n    msg.payload.idx,\n    msg.payload.soilTemp,\n    msg.payload.soilHumi,\n    msg.payload.soilEc,\n    msg.time,\n];\n\n// 환경 데이터 저장\nmsg.topic = \"INSERT INTO cultivator_data (idx, soil_temp, soil_humi, soil_ec, time) VALUES(?, ?, ?, ?, ?);\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 640,
+        "wires": [
+            [
+                "51cef37f21ecec09"
+            ]
+        ]
+    },
+    {
+        "id": "51cef37f21ecec09",
+        "type": "mysql",
+        "z": "2abf337b10e71ef9",
+        "mydb": "ca17075f8d3b3c1e",
+        "name": "DB",
+        "x": 670,
+        "y": 640,
+        "wires": [
+            [
+                "83a6d2f6bb59470e"
+            ]
+        ]
+    },
+    {
+        "id": "83a6d2f6bb59470e",
+        "type": "debug",
+        "z": "2abf337b10e71ef9",
+        "name": "재배기 데이터 DB 저장 (debug)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "729d2ff4304c98c6",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "재배기 01 데이터 검색",
+        "func": "msg.topic = \"SELECT AVG(soil_temp) AS soil_temp, AVG(soil_humi) AS soil_humi, AVG(soil_ec) AS soil_ec, DATE_FORMAT(time, '%H:%i') AS time FROM cultivator_data WHERE time >= DATE_ADD(now(), INTERVAL -24 HOUR) AND idx = 1 GROUP BY MONTH(time), DAY(time), HOUR(time);\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 1240,
+        "wires": [
+            [
+                "8705b607a86826ba"
+            ]
+        ]
+    },
+    {
+        "id": "6f93a356c1752c6e",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "토양 온도 데이터",
+        "func": "var data = [];\nvar time = [];\nmsg.payload.forEach(function (value) {\n    data.push(value[\"soil_temp\"]);\n    time.push(value[\"time\"]);\n});\n\nmsg.payload = [{\n    series: [\"토양 온도\"],\n    data: [data],\n    labels: time\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 1240,
+        "wires": [
+            [
+                "d418a59c5a91e855"
+            ]
+        ]
+    },
+    {
+        "id": "d418a59c5a91e855",
+        "type": "ui_chart",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "group": "bd968ba9a2eb742c",
+        "order": 64,
+        "width": 10,
+        "height": 6,
+        "label": "토양 온도 [1]",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "60",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1070,
+        "y": 1240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8705b607a86826ba",
+        "type": "mysql",
+        "z": "2abf337b10e71ef9",
+        "mydb": "ca17075f8d3b3c1e",
+        "name": "DB",
+        "x": 630,
+        "y": 1240,
+        "wires": [
+            [
+                "6f93a356c1752c6e",
+                "a98a2285fbae41ed",
+                "9ad12e93bcad8877",
+                "70a0220a8db8c028"
+            ]
+        ]
+    },
+    {
+        "id": "a98a2285fbae41ed",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "토양 수분함수율 데이터",
+        "func": "var data = [];\nvar time = [];\nmsg.payload.forEach(function (value) {\n    data.push(value[\"soil_humi\"]);\n    time.push(value[\"time\"]);\n});\n\nmsg.payload = [{\n    series: [\"토양 수분함수율\"],\n    data: [data],\n    labels: time\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 1300,
+        "wires": [
+            [
+                "7ec76dd8e7af0522"
+            ]
+        ]
+    },
+    {
+        "id": "9ad12e93bcad8877",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "토양 EC 데이터",
+        "func": "var data = [];\nvar time = [];\nmsg.payload.forEach(function (value) {\n    data.push(value[\"soil_ec\"]);\n    time.push(value[\"time\"]);\n});\n\nmsg.payload = [{\n    series: [\"토양 EC\"],\n    data: [data],\n    labels: time\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 1360,
+        "wires": [
+            [
+                "aa9aa23bbd146dfa"
+            ]
+        ]
+    },
+    {
+        "id": "7ec76dd8e7af0522",
+        "type": "ui_chart",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "group": "bd968ba9a2eb742c",
+        "order": 66,
+        "width": 10,
+        "height": 6,
+        "label": "토양 수분함수율 [1]",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "50",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1090,
+        "y": 1300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "aa9aa23bbd146dfa",
+        "type": "ui_chart",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "group": "bd968ba9a2eb742c",
+        "order": 68,
+        "width": 10,
+        "height": 6,
+        "label": "토양 EC [1]",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "10",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1070,
+        "y": 1360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ce5e686a7321b01c",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "재배기 02 데이터 검색",
+        "func": "msg.topic = \"SELECT AVG(soil_temp) AS soil_temp, AVG(soil_humi) AS soil_humi, AVG(soil_ec) AS soil_ec, DATE_FORMAT(time, '%H:%i') AS time FROM cultivator_data WHERE time >= DATE_ADD(now(), INTERVAL -24 HOUR) AND idx = 2 GROUP BY MONTH(time), DAY(time), HOUR(time);\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 1520,
+        "wires": [
+            [
+                "58c5e826a5da0b51"
+            ]
+        ]
+    },
+    {
+        "id": "937d81e70502ea63",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "토양 온도 데이터",
+        "func": "var data = [];\nvar time = [];\nmsg.payload.forEach(function (value) {\n    data.push(value[\"soil_temp\"]);\n    time.push(value[\"time\"]);\n});\n\nmsg.payload = [{\n    series: [\"토양 온도\"],\n    data: [data],\n    labels: time\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 1520,
+        "wires": [
+            [
+                "717d3b2b8d8d5461"
+            ]
+        ]
+    },
+    {
+        "id": "717d3b2b8d8d5461",
+        "type": "ui_chart",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "group": "bd968ba9a2eb742c",
+        "order": 69,
+        "width": 10,
+        "height": 6,
+        "label": "토양 온도 [2]",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "60",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1070,
+        "y": 1520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "58c5e826a5da0b51",
+        "type": "mysql",
+        "z": "2abf337b10e71ef9",
+        "mydb": "ca17075f8d3b3c1e",
+        "name": "DB",
+        "x": 630,
+        "y": 1520,
+        "wires": [
+            [
+                "937d81e70502ea63",
+                "e9ffe304f0475557",
+                "4d46946c565406dd",
+                "5bb1c007e55ea65b"
+            ]
+        ]
+    },
+    {
+        "id": "e9ffe304f0475557",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "토양 수분함수율 데이터",
+        "func": "var data = [];\nvar time = [];\nmsg.payload.forEach(function (value) {\n    data.push(value[\"soil_humi\"]);\n    time.push(value[\"time\"]);\n});\n\nmsg.payload = [{\n    series: [\"토양 수분함수율\"],\n    data: [data],\n    labels: time\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 1580,
+        "wires": [
+            [
+                "610338702da3b078"
+            ]
+        ]
+    },
+    {
+        "id": "4d46946c565406dd",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "토양 EC 데이터",
+        "func": "var data = [];\nvar time = [];\nmsg.payload.forEach(function (value) {\n    data.push(value[\"soil_ec\"]);\n    time.push(value[\"time\"]);\n});\n\nmsg.payload = [{\n    series: [\"토양 EC\"],\n    data: [data],\n    labels: time\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 1640,
+        "wires": [
+            [
+                "f87c4343dc61a405"
+            ]
+        ]
+    },
+    {
+        "id": "610338702da3b078",
+        "type": "ui_chart",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "group": "bd968ba9a2eb742c",
+        "order": 71,
+        "width": 10,
+        "height": 6,
+        "label": "토양 수분함수율 [2]",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "50",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1090,
+        "y": 1580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f87c4343dc61a405",
+        "type": "ui_chart",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "group": "bd968ba9a2eb742c",
+        "order": 73,
+        "width": 10,
+        "height": 6,
+        "label": "토양 EC [2]",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "10",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1070,
+        "y": 1640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "70a0220a8db8c028",
+        "type": "debug",
+        "z": "2abf337b10e71ef9",
+        "name": "재배기 01 데이터 검색 (debug)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "5bb1c007e55ea65b",
+        "type": "debug",
+        "z": "2abf337b10e71ef9",
+        "name": "재배기 02 데이터 검색 (debug)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 1700,
+        "wires": []
+    },
+    {
+        "id": "6129a67eca6102ed",
+        "type": "ui_button",
+        "z": "2abf337b10e71ef9",
+        "name": "공급 버튼",
+        "group": "bd968ba9a2eb742c",
+        "order": 53,
+        "width": "8",
+        "height": 1,
+        "passthru": true,
+        "label": "공급",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1500,
+        "y": 920,
+        "wires": [
+            [
+                "c243b0b644baf86f",
+                "1b5b0fde5bf7d053"
+            ]
+        ]
+    },
+    {
+        "id": "d5a5a348e082c9de",
+        "type": "comment",
+        "z": "2abf337b10e71ef9",
+        "name": "양액 제어기",
+        "info": "",
+        "x": 1500,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "3a5225538752170e",
+        "type": "ui_dropdown",
+        "z": "2abf337b10e71ef9",
+        "name": "재배기 선택",
+        "label": "재배기 선택",
+        "tooltip": "재배기를 선택하세요.",
+        "place": "재배기를 선택하세요.",
+        "group": "bd968ba9a2eb742c",
+        "order": 39,
+        "width": "8",
+        "height": 1,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "재배기 전체",
+                "value": 0,
+                "type": "num"
+            },
+            {
+                "label": "재배기 1",
+                "value": 1,
+                "type": "num"
+            },
+            {
+                "label": "재배기 2",
+                "value": 2,
+                "type": "num"
+            }
+        ],
+        "payload": "",
+        "topic": "payload",
+        "topicType": "msg",
+        "className": "",
+        "x": 1850,
+        "y": 1160,
+        "wires": [
+            [
+                "10abdcf96d425565"
+            ]
+        ]
+    },
+    {
+        "id": "967edc3a07b50bc3",
+        "type": "ui_text_input",
+        "z": "2abf337b10e71ef9",
+        "name": "pH",
+        "label": "pH",
+        "tooltip": "pH 값을 입력하세요.",
+        "group": "bd968ba9a2eb742c",
+        "order": 32,
+        "width": "4",
+        "height": 1,
+        "passthru": true,
+        "mode": "number",
+        "delay": 300,
+        "topic": "payload",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1830,
+        "y": 980,
+        "wires": [
+            [
+                "445c7886d5ddb3bf"
+            ]
+        ]
+    },
+    {
+        "id": "75fd58b8d24be119",
+        "type": "ui_text_input",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "label": "EC",
+        "tooltip": "EC 값을 입력하세요.",
+        "group": "bd968ba9a2eb742c",
+        "order": 33,
+        "width": "4",
+        "height": 1,
+        "passthru": true,
+        "mode": "number",
+        "delay": 300,
+        "topic": "payload",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1830,
+        "y": 1040,
+        "wires": [
+            [
+                "789ef4324001b56a"
+            ]
+        ]
+    },
+    {
+        "id": "44ad86dec0c14e47",
+        "type": "ui_text_input",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "label": "공급 유량",
+        "tooltip": "공급 유량을 입력하세요. (mL)",
+        "group": "bd968ba9a2eb742c",
+        "order": 35,
+        "width": "8",
+        "height": 1,
+        "passthru": true,
+        "mode": "number",
+        "delay": 300,
+        "topic": "payload",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1840,
+        "y": 1100,
+        "wires": [
+            [
+                "2afcfa79b67ab60c"
+            ]
+        ]
+    },
+    {
+        "id": "40913ccdbf5fdd38",
+        "type": "comment",
+        "z": "2abf337b10e71ef9",
+        "name": "공기압 발생기",
+        "info": "",
+        "x": 1510,
+        "y": 1620,
+        "wires": []
+    },
+    {
+        "id": "0c2537f53eb2b9f1",
+        "type": "comment",
+        "z": "2abf337b10e71ef9",
+        "name": "환경 제어기",
+        "info": "",
+        "x": 1500,
+        "y": 2840,
+        "wires": []
+    },
+    {
+        "id": "f5609481e9c7138c",
+        "type": "ui_text_input",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "label": "온도",
+        "tooltip": "설정 온도를 입력하세요.",
+        "group": "bd968ba9a2eb742c",
+        "order": 42,
+        "width": "8",
+        "height": 1,
+        "passthru": true,
+        "mode": "number",
+        "delay": 300,
+        "topic": "payload",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1670,
+        "y": 2920,
+        "wires": [
+            [
+                "2fc9c7d218977df9"
+            ]
+        ]
+    },
+    {
+        "id": "b6623c39aa137820",
+        "type": "ui_text_input",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "label": "습도",
+        "tooltip": "설정 습도를 입력하세요.",
+        "group": "bd968ba9a2eb742c",
+        "order": 46,
+        "width": "8",
+        "height": 1,
+        "passthru": true,
+        "mode": "number",
+        "delay": 300,
+        "topic": "payload",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1670,
+        "y": 2980,
+        "wires": [
+            [
+                "03646f9f249ef91a"
+            ]
+        ]
+    },
+    {
+        "id": "47dc4906306a3985",
+        "type": "ui_text_input",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "label": "이산화탄소",
+        "tooltip": "설정 이산화탄소를 입력하세요.",
+        "group": "bd968ba9a2eb742c",
+        "order": 52,
+        "width": "8",
+        "height": 1,
+        "passthru": true,
+        "mode": "number",
+        "delay": 300,
+        "topic": "payload",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1680,
+        "y": 3040,
+        "wires": [
+            [
+                "d22e2716cf3b9b44"
+            ]
+        ]
+    },
+    {
+        "id": "b8245352793a6b56",
+        "type": "ui_button",
+        "z": "2abf337b10e71ef9",
+        "name": "설정 버튼",
+        "group": "bd968ba9a2eb742c",
+        "order": 56,
+        "width": "8",
+        "height": 1,
+        "passthru": false,
+        "label": "설정",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1500,
+        "y": 2920,
+        "wires": [
+            [
+                "f00c4cda0c537c4c"
+            ]
+        ]
+    },
+    {
+        "id": "a4362786fec435e3",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 1,
+        "width": 15,
+        "height": 1,
+        "name": "실시간 데이터",
+        "label": "<font size=5 font>실시간 데이터</font>",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 130,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "6d1a8dd84fe7d169",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 3,
+        "width": 15,
+        "height": 1,
+        "name": "제어기 상태",
+        "label": "<font size=5 font>제어기 상태</font>",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1510,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "8c912b753ab1ad34",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 24,
+        "width": "8",
+        "height": 1,
+        "name": "양액 제어기",
+        "label": "<font size=5 font>양액 제어기</font>",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1510,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "8a253777a68ea80a",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 27,
+        "width": "8",
+        "height": 1,
+        "name": "환경 제어기",
+        "label": "<font size=5 font>환경 제어기</font>",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1510,
+        "y": 2880,
+        "wires": []
+    },
+    {
+        "id": "e8717ae289b72a33",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 25,
+        "width": "8",
+        "height": 1,
+        "name": "공기압 발생기",
+        "label": "<font size=5 font>공기압 발생기</font>",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1510,
+        "y": 1660,
+        "wires": []
+    },
+    {
+        "id": "77408348ca342aa8",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 58,
+        "width": "32",
+        "height": 1,
+        "name": "그래프",
+        "label": "<font size=5 font>그래프</font>",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 110,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "4cfaf873840bad39",
+        "type": "comment",
+        "z": "2abf337b10e71ef9",
+        "name": "양액 제어기 상태 수신",
+        "info": "",
+        "x": 1530,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "e99d681524447360",
+        "type": "mqtt in",
+        "z": "2abf337b10e71ef9",
+        "name": "양액 제어기 상태 데이터 수신",
+        "topic": "nutrient_status",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "e02759af78813ba7",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1550,
+        "y": 140,
+        "wires": [
+            [
+                "4ca3785c49bdf8d9"
+            ]
+        ]
+    },
+    {
+        "id": "d60628ac9cd8b5fc",
+        "type": "mqtt in",
+        "z": "2abf337b10e71ef9",
+        "name": "공기압 발생기 상태 데이터 수신",
+        "topic": "air_status",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "e02759af78813ba7",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1560,
+        "y": 280,
+        "wires": [
+            [
+                "fa02244430c8be90"
+            ]
+        ]
+    },
+    {
+        "id": "2b4ea5bb08fdd5d9",
+        "type": "mqtt in",
+        "z": "2abf337b10e71ef9",
+        "name": "환경 제어기 상태 데이터 수신",
+        "topic": "environment_status",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "e02759af78813ba7",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1550,
+        "y": 560,
+        "wires": [
+            [
+                "4bce2aa644265ac2",
+                "f067305851fc22d1",
+                "d020b8f2ace71416"
+            ]
+        ]
+    },
+    {
+        "id": "03a936d97aa20b91",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 8,
+        "width": 5,
+        "height": 1,
+        "name": "",
+        "label": "양액 제어기",
+        "format": "{{msg.payload.nutrient}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 2010,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "7361c43dcec382a5",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 9,
+        "width": 5,
+        "height": 1,
+        "name": "",
+        "label": "공기압 발생기",
+        "format": "{{msg.payload.air}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 2010,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "22564223c60a3d56",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 15,
+        "width": 5,
+        "height": 1,
+        "name": "",
+        "label": "냉난방기",
+        "format": "{{msg.payload.air_conditioner}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 2240,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "4ca3785c49bdf8d9",
+        "type": "change",
+        "z": "2abf337b10e71ef9",
+        "name": "상태 값 치환",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload.nutrient",
+                "pt": "msg",
+                "from": "0",
+                "fromt": "num",
+                "to": "OFF",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload.nutrient",
+                "pt": "msg",
+                "from": "1",
+                "fromt": "num",
+                "to": "ON",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1810,
+        "y": 140,
+        "wires": [
+            [
+                "03a936d97aa20b91"
+            ]
+        ]
+    },
+    {
+        "id": "fa02244430c8be90",
+        "type": "change",
+        "z": "2abf337b10e71ef9",
+        "name": "상태 값 치환",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload.air",
+                "pt": "msg",
+                "from": "0",
+                "fromt": "num",
+                "to": "OFF",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload.air",
+                "pt": "msg",
+                "from": "1",
+                "fromt": "num",
+                "to": "ON",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1810,
+        "y": 280,
+        "wires": [
+            [
+                "7361c43dcec382a5"
+            ]
+        ]
+    },
+    {
+        "id": "f1f6e1a6e0aca10c",
+        "type": "change",
+        "z": "2abf337b10e71ef9",
+        "name": "상태 값 치환",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload.air_conditioner",
+                "pt": "msg",
+                "from": "0",
+                "fromt": "num",
+                "to": "OFF",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2050,
+        "y": 560,
+        "wires": [
+            [
+                "22564223c60a3d56"
+            ]
+        ]
+    },
+    {
+        "id": "4bce2aa644265ac2",
+        "type": "change",
+        "z": "2abf337b10e71ef9",
+        "name": "상태 값 치환",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload.humidifier",
+                "pt": "msg",
+                "from": "0",
+                "fromt": "num",
+                "to": "OFF",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload.humidifier",
+                "pt": "msg",
+                "from": "1",
+                "fromt": "num",
+                "to": "ON",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1810,
+        "y": 680,
+        "wires": [
+            [
+                "981beb62f4f627d9"
+            ]
+        ]
+    },
+    {
+        "id": "f067305851fc22d1",
+        "type": "change",
+        "z": "2abf337b10e71ef9",
+        "name": "상태 값 치환",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload.fan",
+                "pt": "msg",
+                "from": "0",
+                "fromt": "num",
+                "to": "OFF",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload.fan",
+                "pt": "msg",
+                "from": "1",
+                "fromt": "num",
+                "to": "ON",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1810,
+        "y": 740,
+        "wires": [
+            [
+                "9cfebee812ab5d82"
+            ]
+        ]
+    },
+    {
+        "id": "981beb62f4f627d9",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 16,
+        "width": 5,
+        "height": 1,
+        "name": "",
+        "label": "가습기",
+        "format": "{{msg.payload.humidifier}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1990,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "9cfebee812ab5d82",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 17,
+        "width": 5,
+        "height": 1,
+        "name": "",
+        "label": "흡/배기팬",
+        "format": "{{msg.payload.fan}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 2000,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "d020b8f2ace71416",
+        "type": "switch",
+        "z": "2abf337b10e71ef9",
+        "name": "냉난방기 상태 분류",
+        "property": "payload.air_conditioner",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            },
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1830,
+        "y": 560,
+        "wires": [
+            [
+                "f1f6e1a6e0aca10c"
+            ],
+            [
+                "02c6d089367c39e2"
+            ]
+        ]
+    },
+    {
+        "id": "02c6d089367c39e2",
+        "type": "template",
+        "z": "2abf337b10e71ef9",
+        "name": "℃ 추가",
+        "field": "payload.air_conditioner",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{{payload.air_conditioner}}℃",
+        "output": "str",
+        "x": 2040,
+        "y": 620,
+        "wires": [
+            [
+                "22564223c60a3d56"
+            ]
+        ]
+    },
+    {
+        "id": "5b973acd6ba12fcc",
+        "type": "comment",
+        "z": "2abf337b10e71ef9",
+        "name": "공기압 발생기 상태 수신",
+        "info": "",
+        "x": 1540,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "88d305ac0894833c",
+        "type": "comment",
+        "z": "2abf337b10e71ef9",
+        "name": "환경 제어기 상태 수신",
+        "info": "",
+        "x": 1530,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "5c7dce485af9a32f",
+        "type": "comment",
+        "z": "2abf337b10e71ef9",
+        "name": "조명 제어기 상태 수신",
+        "info": "",
+        "x": 1530,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "2e15058441986784",
+        "type": "mqtt in",
+        "z": "2abf337b10e71ef9",
+        "name": "조명 제어기 상태 데이터 수신",
+        "topic": "led_status",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "e02759af78813ba7",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1550,
+        "y": 420,
+        "wires": [
+            [
+                "9e8af2f3e856bbbf"
+            ]
+        ]
+    },
+    {
+        "id": "9e8af2f3e856bbbf",
+        "type": "change",
+        "z": "2abf337b10e71ef9",
+        "name": "상태 값 치환",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload.led",
+                "pt": "msg",
+                "from": "0",
+                "fromt": "num",
+                "to": "OFF",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload.led",
+                "pt": "msg",
+                "from": "1",
+                "fromt": "num",
+                "to": "ON",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1810,
+        "y": 420,
+        "wires": [
+            [
+                "6a40107261d94bac"
+            ]
+        ]
+    },
+    {
+        "id": "6a40107261d94bac",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 10,
+        "width": 5,
+        "height": 1,
+        "name": "",
+        "label": "조명 제어기",
+        "format": "{{msg.payload.led}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 2010,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "aa209588c21383c5",
+        "type": "comment",
+        "z": "2abf337b10e71ef9",
+        "name": "조명 제어기",
+        "info": "",
+        "x": 1500,
+        "y": 2280,
+        "wires": []
+    },
+    {
+        "id": "e8aa8a279c26b93c",
+        "type": "ui_text",
+        "z": "2abf337b10e71ef9",
+        "group": "bd968ba9a2eb742c",
+        "order": 26,
+        "width": "8",
+        "height": 1,
+        "name": "조명 제어기",
+        "label": "<font size=5 font>조명 제어기</font>",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1510,
+        "y": 2320,
+        "wires": []
+    },
+    {
+        "id": "03e4b27080068cd0",
+        "type": "ui_text_input",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "label": "시작 시간",
+        "tooltip": "시작 시간을 선택하세요.",
+        "group": "bd968ba9a2eb742c",
+        "order": 43,
+        "width": "8",
+        "height": "1",
+        "passthru": true,
+        "mode": "datetime-local",
+        "delay": 300,
+        "topic": "payload",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1840,
+        "y": 1220,
+        "wires": [
+            [
+                "01fa4e409e9e548e"
+            ]
+        ]
+    },
+    {
+        "id": "189ce719e0ea7788",
+        "type": "ui_dropdown",
+        "z": "2abf337b10e71ef9",
+        "name": "공급 방식 선택",
+        "label": "공급 선택",
+        "tooltip": "공급 방법을 선택하세요.",
+        "place": "공급 방법을 선택하세요.",
+        "group": "bd968ba9a2eb742c",
+        "order": 28,
+        "width": "8",
+        "height": 1,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "즉시 공급",
+                "value": 0,
+                "type": "num"
+            },
+            {
+                "label": "예약 공급",
+                "value": 1,
+                "type": "num"
+            },
+            {
+                "label": "간격 공급",
+                "value": 2,
+                "type": "num"
+            }
+        ],
+        "payload": "",
+        "topic": "payload",
+        "topicType": "msg",
+        "className": "",
+        "x": 1850,
+        "y": 920,
+        "wires": [
+            [
+                "2530016d71df508e"
+            ]
+        ]
+    },
+    {
+        "id": "71bab188bf25747e",
+        "type": "ui_text_input",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "label": "종료 시간",
+        "tooltip": "종료 시간을 선택하세요.",
+        "group": "bd968ba9a2eb742c",
+        "order": 47,
+        "width": "5",
+        "height": "1",
+        "passthru": true,
+        "mode": "datetime-local",
+        "delay": 300,
+        "topic": "payload",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1840,
+        "y": 1280,
+        "wires": [
+            [
+                "298cd9c248f1af98"
+            ]
+        ]
+    },
+    {
+        "id": "7c8995d2769914e7",
+        "type": "ui_text_input",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "label": "간격 시간",
+        "tooltip": "분 단위로 입력하세요.",
+        "group": "bd968ba9a2eb742c",
+        "order": 48,
+        "width": "3",
+        "height": "1",
+        "passthru": true,
+        "mode": "number",
+        "delay": 300,
+        "topic": "payload",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1840,
+        "y": 1340,
+        "wires": [
+            [
+                "3e3b7b3320e9cb4d"
+            ]
+        ]
+    },
+    {
+        "id": "c243b0b644baf86f",
+        "type": "switch",
+        "z": "2abf337b10e71ef9",
+        "name": "공급 방식 선택",
+        "property": "select",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1690,
+        "y": 1400,
+        "wires": [
+            [
+                "7c9db3d1182549a5"
+            ],
+            [
+                "213cc40317cb0bb9"
+            ],
+            [
+                "070301ae69d5f305"
+            ]
+        ]
+    },
+    {
+        "id": "7c9db3d1182549a5",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "즉시 공급",
+        "func": "msg.payload = {\n    \"code\": \"C_M_001\",\n    \"paramsDetail\": {\n        \"ph\": global.get(\"ph\"),\n        \"ec\": global.get(\"ec\"),\n        \"amount\": global.get(\"amount\"),\n        \"cultivator\": global.get(\"cultivator\"),\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1940,
+        "y": 1400,
+        "wires": [
+            [
+                "7a6b4b6704e57ae1"
+            ]
+        ]
+    },
+    {
+        "id": "445c7886d5ddb3bf",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "pH 값 저장",
+        "func": "global.set(\"ph\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2040,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "789ef4324001b56a",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "EC 값 저장",
+        "func": "global.set(\"ec\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2040,
+        "y": 1040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2afcfa79b67ab60c",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "공급 유량 값 저장",
+        "func": "global.set(\"amount\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2060,
+        "y": 1100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "10abdcf96d425565",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "재배기 선택 값 저장",
+        "func": "global.set(\"cultivator\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2070,
+        "y": 1160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b21ee97c19b9e951",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "시작 시간 값 저장",
+        "func": "global.set(\"start_time\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2280,
+        "y": 1220,
+        "wires": [
+            [
+                "538985d6f2d9a970"
+            ]
+        ]
+    },
+    {
+        "id": "4911f32f2af8f34c",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "종료 시간 값 저장",
+        "func": "global.set(\"end_time\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2280,
+        "y": 1280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3e3b7b3320e9cb4d",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "간격 시간 값 저장",
+        "func": "global.set(\"interval_time\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2060,
+        "y": 1340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2530016d71df508e",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "공급 방식 선택 저장",
+        "func": "global.set(\"select\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2070,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "213cc40317cb0bb9",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "예약 공급",
+        "func": "msg.payload = {\n    \"code\": \"R_M_001\",\n    \"paramsDetail\": {\n        \"ph\": global.get(\"ph\"),\n        \"ec\": global.get(\"ec\"),\n        \"amount\": global.get(\"amount\"),\n        \"cultivator\": global.get(\"cultivator\"),\n        \"startTime\": global.get(\"start_time\"),\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1940,
+        "y": 1460,
+        "wires": [
+            [
+                "59d22cfa2a3d5765"
+            ]
+        ]
+    },
+    {
+        "id": "070301ae69d5f305",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "간격 공급",
+        "func": "msg.payload = {\n    \"code\": \"I_M_001\",\n    \"paramsDetail\": {\n        \"ph\": global.get(\"ph\"),\n        \"ec\": global.get(\"ec\"),\n        \"amount\": global.get(\"amount\"),\n        \"cultivator\": global.get(\"cultivator\"),\n        \"startTime\": global.get(\"start_time\"),\n        \"endTime\": global.get(\"end_time\"),\n        \"intervalTime\": global.get(\"interval_time\"),\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1940,
+        "y": 1520,
+        "wires": [
+            [
+                "eb8d707ed7b8b59e"
+            ]
+        ]
+    },
+    {
+        "id": "1b5b0fde5bf7d053",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "Clear",
+        "func": "msg.payload = \"\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1670,
+        "y": 920,
+        "wires": [
+            [
+                "189ce719e0ea7788",
+                "967edc3a07b50bc3",
+                "75fd58b8d24be119",
+                "44ad86dec0c14e47",
+                "3a5225538752170e",
+                "03e4b27080068cd0",
+                "71bab188bf25747e",
+                "7c8995d2769914e7"
+            ]
+        ]
+    },
+    {
+        "id": "24268907d02ca05f",
+        "type": "ui_button",
+        "z": "2abf337b10e71ef9",
+        "name": "공급 버튼",
+        "group": "bd968ba9a2eb742c",
+        "order": 54,
+        "width": "8",
+        "height": 1,
+        "passthru": true,
+        "label": "공급",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1500,
+        "y": 1700,
+        "wires": [
+            [
+                "9fea0f48999a3803",
+                "b295b3a2e139a4d8"
+            ]
+        ]
+    },
+    {
+        "id": "379d7abd6a43fc0f",
+        "type": "ui_dropdown",
+        "z": "2abf337b10e71ef9",
+        "name": "재배기 선택",
+        "label": "재배기 선택",
+        "tooltip": "재배기를 선택하세요.",
+        "place": "재배기를 선택하세요.",
+        "group": "bd968ba9a2eb742c",
+        "order": 40,
+        "width": "8",
+        "height": 1,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "재배기 전체",
+                "value": 0,
+                "type": "num"
+            },
+            {
+                "label": "재배기 1",
+                "value": 1,
+                "type": "num"
+            },
+            {
+                "label": "재배기 2",
+                "value": 2,
+                "type": "num"
+            }
+        ],
+        "payload": "",
+        "topic": "payload",
+        "topicType": "msg",
+        "className": "",
+        "x": 1850,
+        "y": 1820,
+        "wires": [
+            [
+                "3a2372919ff0ada1"
+            ]
+        ]
+    },
+    {
+        "id": "d53675b83ca34a69",
+        "type": "ui_text_input",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "label": "공급 시간",
+        "tooltip": "공급 시간을 입력하세요. (분)",
+        "group": "bd968ba9a2eb742c",
+        "order": 36,
+        "width": "8",
+        "height": 1,
+        "passthru": true,
+        "mode": "number",
+        "delay": 300,
+        "topic": "payload",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1840,
+        "y": 1760,
+        "wires": [
+            [
+                "f4bf2fce31faa929"
+            ]
+        ]
+    },
+    {
+        "id": "909d1a9a96c981c5",
+        "type": "ui_text_input",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "label": "시작 시간",
+        "tooltip": "시작 시간을 선택하세요.",
+        "group": "bd968ba9a2eb742c",
+        "order": 44,
+        "width": "8",
+        "height": "1",
+        "passthru": true,
+        "mode": "datetime-local",
+        "delay": 300,
+        "topic": "payload",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1840,
+        "y": 1880,
+        "wires": [
+            [
+                "bbf3bf570404b8ed"
+            ]
+        ]
+    },
+    {
+        "id": "cbcac8aee6e672ae",
+        "type": "ui_dropdown",
+        "z": "2abf337b10e71ef9",
+        "name": "공급 방식 선택",
+        "label": "공급 선택",
+        "tooltip": "공급 방법을 선택하세요.",
+        "place": "공급 방법을 선택하세요.",
+        "group": "bd968ba9a2eb742c",
+        "order": 29,
+        "width": "8",
+        "height": 1,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "즉시 공급",
+                "value": 0,
+                "type": "num"
+            },
+            {
+                "label": "예약 공급",
+                "value": 1,
+                "type": "num"
+            },
+            {
+                "label": "간격 공급",
+                "value": "2",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "payload",
+        "topicType": "msg",
+        "className": "",
+        "x": 1850,
+        "y": 1700,
+        "wires": [
+            [
+                "c5a2189a4b76193b"
+            ]
+        ]
+    },
+    {
+        "id": "0a1e46ec98c50ed1",
+        "type": "ui_text_input",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "label": "종료 시간",
+        "tooltip": "종료 시간을 선택하세요.",
+        "group": "bd968ba9a2eb742c",
+        "order": 49,
+        "width": "5",
+        "height": "1",
+        "passthru": true,
+        "mode": "datetime-local",
+        "delay": 300,
+        "topic": "payload",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1840,
+        "y": 1940,
+        "wires": [
+            [
+                "6d29a725dfcec24a"
+            ]
+        ]
+    },
+    {
+        "id": "2eff9bcb74abcbc1",
+        "type": "ui_text_input",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "label": "간격 시간",
+        "tooltip": "분 단위로 입력하세요.",
+        "group": "bd968ba9a2eb742c",
+        "order": 50,
+        "width": "3",
+        "height": "1",
+        "passthru": true,
+        "mode": "number",
+        "delay": 300,
+        "topic": "payload",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1840,
+        "y": 2000,
+        "wires": [
+            [
+                "da06d52f7d58b5c5"
+            ]
+        ]
+    },
+    {
+        "id": "9fea0f48999a3803",
+        "type": "switch",
+        "z": "2abf337b10e71ef9",
+        "name": "공급 방식 선택",
+        "property": "select_2",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1690,
+        "y": 2060,
+        "wires": [
+            [
+                "ca4a30c0d8f9e129"
+            ],
+            [
+                "f969db8a2d0aa7b6"
+            ],
+            [
+                "2baff06ac4af458d"
+            ]
+        ]
+    },
+    {
+        "id": "ca4a30c0d8f9e129",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "즉시 공급",
+        "func": "msg.payload = {\n    \"code\": \"C_M_002\",\n    \"paramsDetail\": {\n        \"time\": global.get(\"time_2\"),\n        \"cultivator\": global.get(\"cultivator_2\"),\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1940,
+        "y": 2060,
+        "wires": [
+            [
+                "94ddf23eede637f2"
+            ]
+        ]
+    },
+    {
+        "id": "f4bf2fce31faa929",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "공급 시간 값 저장",
+        "func": "global.set(\"time_2\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2060,
+        "y": 1760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3a2372919ff0ada1",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "재배기 선택 값 저장",
+        "func": "global.set(\"cultivator_2\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2070,
+        "y": 1820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d0dcacab7957c5ef",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "시작 시간 값 저장",
+        "func": "global.set(\"start_time_2\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2280,
+        "y": 1880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f9ac2e41f3ad85ad",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "종료 시간 값 저장",
+        "func": "global.set(\"end_time_2\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2280,
+        "y": 1940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "da06d52f7d58b5c5",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "간격 시간 값 저장",
+        "func": "global.set(\"interval_time_2\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2060,
+        "y": 2000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c5a2189a4b76193b",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "공급 방식 선택 저장",
+        "func": "global.set(\"select_2\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2070,
+        "y": 1700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f969db8a2d0aa7b6",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "예약 공급",
+        "func": "msg.payload = {\n    \"code\": \"R_M_002\",\n    \"paramsDetail\": {\n        \"time\": global.get(\"time_2\"),\n        \"cultivator\": global.get(\"cultivator_2\"),\n        \"startTime\": global.get(\"start_time_2\"),\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1940,
+        "y": 2120,
+        "wires": [
+            [
+                "5f97e4036602e02e"
+            ]
+        ]
+    },
+    {
+        "id": "b295b3a2e139a4d8",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "Clear",
+        "func": "msg.payload = \"\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1670,
+        "y": 1700,
+        "wires": [
+            [
+                "cbcac8aee6e672ae",
+                "d53675b83ca34a69",
+                "379d7abd6a43fc0f",
+                "909d1a9a96c981c5",
+                "0a1e46ec98c50ed1",
+                "2eff9bcb74abcbc1"
+            ]
+        ]
+    },
+    {
+        "id": "2baff06ac4af458d",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "간격 공급",
+        "func": "msg.payload = {\n    \"code\": \"I_M_002\",\n    \"paramsDetail\": {\n        \"time\": global.get(\"time_2\"),\n        \"cultivator\": global.get(\"cultivator_2\"),\n        \"startTime\": global.get(\"start_time_2\"),\n        \"endTime\": global.get(\"end_time_2\"),\n        \"intervalTime\": global.get(\"interval_time_2\"),\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1940,
+        "y": 2180,
+        "wires": [
+            [
+                "13403e2ebcbf0d2f"
+            ]
+        ]
+    },
+    {
+        "id": "01fa4e409e9e548e",
+        "type": "moment",
+        "z": "2abf337b10e71ef9",
+        "name": "Time Formatter",
+        "topic": "",
+        "input": "",
+        "inputType": "msg",
+        "inTz": "Asia/Seoul",
+        "adjAmount": "9",
+        "adjType": "hours",
+        "adjDir": "subtract",
+        "format": "YYYY-MM-DDTHH:mm:ss",
+        "locale": "ko-KR",
+        "output": "",
+        "outputType": "msg",
+        "outTz": "Asia/Seoul",
+        "x": 2060,
+        "y": 1220,
+        "wires": [
+            [
+                "b21ee97c19b9e951"
+            ]
+        ]
+    },
+    {
+        "id": "298cd9c248f1af98",
+        "type": "moment",
+        "z": "2abf337b10e71ef9",
+        "name": "Time Formatter",
+        "topic": "",
+        "input": "",
+        "inputType": "msg",
+        "inTz": "Asia/Seoul",
+        "adjAmount": "9",
+        "adjType": "hours",
+        "adjDir": "subtract",
+        "format": "YYYY-MM-DDTHH:mm:ss",
+        "locale": "ko-KR",
+        "output": "",
+        "outputType": "msg",
+        "outTz": "Asia/Seoul",
+        "x": 2060,
+        "y": 1280,
+        "wires": [
+            [
+                "4911f32f2af8f34c"
+            ]
+        ]
+    },
+    {
+        "id": "bbf3bf570404b8ed",
+        "type": "moment",
+        "z": "2abf337b10e71ef9",
+        "name": "Time Formatter",
+        "topic": "",
+        "input": "",
+        "inputType": "msg",
+        "inTz": "Asia/Seoul",
+        "adjAmount": "9",
+        "adjType": "hours",
+        "adjDir": "subtract",
+        "format": "YYYY-MM-DDTHH:mm:ss",
+        "locale": "ko-KR",
+        "output": "",
+        "outputType": "msg",
+        "outTz": "Asia/Seoul",
+        "x": 2060,
+        "y": 1880,
+        "wires": [
+            [
+                "d0dcacab7957c5ef"
+            ]
+        ]
+    },
+    {
+        "id": "6d29a725dfcec24a",
+        "type": "moment",
+        "z": "2abf337b10e71ef9",
+        "name": "Time Formatter",
+        "topic": "",
+        "input": "",
+        "inputType": "msg",
+        "inTz": "Asia/Seoul",
+        "adjAmount": "9",
+        "adjType": "hours",
+        "adjDir": "subtract",
+        "format": "YYYY-MM-DDTHH:mm:ss",
+        "locale": "ko-KR",
+        "output": "",
+        "outputType": "msg",
+        "outTz": "Asia/Seoul",
+        "x": 2060,
+        "y": 1940,
+        "wires": [
+            [
+                "f9ac2e41f3ad85ad"
+            ]
+        ]
+    },
+    {
+        "id": "1556321548629aee",
+        "type": "ui_button",
+        "z": "2abf337b10e71ef9",
+        "name": "설정 버튼",
+        "group": "bd968ba9a2eb742c",
+        "order": 55,
+        "width": "8",
+        "height": 1,
+        "passthru": true,
+        "label": "설정",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1500,
+        "y": 2360,
+        "wires": [
+            [
+                "16598adc8fb94a8a",
+                "70ed2b098af1a27a"
+            ]
+        ]
+    },
+    {
+        "id": "70ed2b098af1a27a",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "Clear",
+        "func": "msg.payload = \"\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1670,
+        "y": 2360,
+        "wires": [
+            [
+                "b8b74add21c678b3",
+                "b55609cc989cf8f7",
+                "3a8d7bd7f5ecea96"
+            ]
+        ]
+    },
+    {
+        "id": "fe616d10c27ec16c",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "조명 ON/OFF 방식 선택 저장",
+        "func": "global.set(\"select_3\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2160,
+        "y": 2360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b8b74add21c678b3",
+        "type": "ui_text_input",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "label": "시작 시간",
+        "tooltip": "시작 시간을 선택하세요.",
+        "group": "bd968ba9a2eb742c",
+        "order": 45,
+        "width": "8",
+        "height": "1",
+        "passthru": true,
+        "mode": "datetime-local",
+        "delay": 300,
+        "topic": "payload",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1840,
+        "y": 2420,
+        "wires": [
+            [
+                "d86bb8940a5948e0"
+            ]
+        ]
+    },
+    {
+        "id": "d86bb8940a5948e0",
+        "type": "moment",
+        "z": "2abf337b10e71ef9",
+        "name": "Time Formatter",
+        "topic": "",
+        "input": "",
+        "inputType": "msg",
+        "inTz": "Asia/Seoul",
+        "adjAmount": "9",
+        "adjType": "hours",
+        "adjDir": "subtract",
+        "format": "YYYY-MM-DDTHH:mm:ss",
+        "locale": "ko-KR",
+        "output": "",
+        "outputType": "msg",
+        "outTz": "Asia/Seoul",
+        "x": 2120,
+        "y": 2420,
+        "wires": [
+            [
+                "29cea2835df84c22"
+            ]
+        ]
+    },
+    {
+        "id": "29cea2835df84c22",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "시작 시간 값 저장",
+        "func": "global.set(\"start_time_3\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2340,
+        "y": 2420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b55609cc989cf8f7",
+        "type": "ui_text_input",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "label": "종료 시간",
+        "tooltip": "종료 시간을 선택하세요.",
+        "group": "bd968ba9a2eb742c",
+        "order": 51,
+        "width": "8",
+        "height": "1",
+        "passthru": true,
+        "mode": "datetime-local",
+        "delay": 300,
+        "topic": "payload",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 1840,
+        "y": 2480,
+        "wires": [
+            [
+                "efbce0a8608f2bc8"
+            ]
+        ]
+    },
+    {
+        "id": "efbce0a8608f2bc8",
+        "type": "moment",
+        "z": "2abf337b10e71ef9",
+        "name": "Time Formatter",
+        "topic": "",
+        "input": "",
+        "inputType": "msg",
+        "inTz": "Asia/Seoul",
+        "adjAmount": "9",
+        "adjType": "hours",
+        "adjDir": "subtract",
+        "format": "YYYY-MM-DDTHH:mm:ss",
+        "locale": "ko-KR",
+        "output": "",
+        "outputType": "msg",
+        "outTz": "Asia/Seoul",
+        "x": 2120,
+        "y": 2480,
+        "wires": [
+            [
+                "9091ad585565c5ed"
+            ]
+        ]
+    },
+    {
+        "id": "9091ad585565c5ed",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "종료 시간 값 저장",
+        "func": "global.set(\"end_time_3\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2340,
+        "y": 2480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "16598adc8fb94a8a",
+        "type": "switch",
+        "z": "2abf337b10e71ef9",
+        "name": "ON/OFF 방식 선택",
+        "property": "select_3",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "3",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 1710,
+        "y": 2560,
+        "wires": [
+            [
+                "6ee2acbf7b1b5f9d"
+            ],
+            [
+                "093601778aff589f"
+            ],
+            [
+                "e919401526046e70"
+            ],
+            [
+                "b523ba4693ee35d5"
+            ]
+        ]
+    },
+    {
+        "id": "6ee2acbf7b1b5f9d",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "즉시 ON",
+        "func": "msg.payload = {\n    \"code\": \"C_M_003\",\n    \"paramsDetail\": {\n        \n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1940,
+        "y": 2560,
+        "wires": [
+            [
+                "89d73f941a6d7519"
+            ]
+        ]
+    },
+    {
+        "id": "e919401526046e70",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "예약 ON",
+        "func": "msg.payload = {\n    \"code\": \"R_M_003\",\n    \"paramsDetail\": {\n        \"startTime\": global.get(\"start_time_3\"),\n    }\n    \n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1940,
+        "y": 2680,
+        "wires": [
+            [
+                "31a7753d10de84ae"
+            ]
+        ]
+    },
+    {
+        "id": "b523ba4693ee35d5",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "예약 OFF",
+        "func": "msg.payload = {\n    \"code\": \"R_M_004\",\n    \"paramsDetail\": {\n        \"endTime\": global.get(\"end_time_3\"),\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1940,
+        "y": 2740,
+        "wires": [
+            [
+                "69424756928a25a9"
+            ]
+        ]
+    },
+    {
+        "id": "093601778aff589f",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "즉시 OFF",
+        "func": "msg.payload = {\n    \"code\": \"C_M_004\",\n    \"paramsDetail\": {\n\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1940,
+        "y": 2620,
+        "wires": [
+            [
+                "45d1cb7992c44c81"
+            ]
+        ]
+    },
+    {
+        "id": "fc512f8676374a32",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "Clear",
+        "func": "msg.payload = \"\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1670,
+        "y": 2880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d22e2716cf3b9b44",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "온도 값 저장",
+        "func": "global.set(\"co2_4\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1870,
+        "y": 3040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "03646f9f249ef91a",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "습도 값 저장",
+        "func": "global.set(\"humi_4\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1870,
+        "y": 2980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2fc9c7d218977df9",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "온도 값 저장",
+        "func": "global.set(\"temp_4\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1870,
+        "y": 2920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f00c4cda0c537c4c",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "환경 데이터 전송",
+        "func": "msg.payload = {\n    \"code\": \"C_M_005\",\n    \"paramsDetail\": {\n        \"temp\": global.get(\"temp_4\"),\n        \"humi\": global.get(\"humi_4\"),\n        \"co2\": global.get(\"co2_4\"),\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1700,
+        "y": 3100,
+        "wires": [
+            [
+                "50b7ede0aad5175a"
+            ]
+        ]
+    },
+    {
+        "id": "3a8d7bd7f5ecea96",
+        "type": "ui_dropdown",
+        "z": "2abf337b10e71ef9",
+        "name": "조명 ON/OFF 방식 선택",
+        "label": "조명 선택",
+        "tooltip": "조명 ON/OFF 방법을 선택하세요.",
+        "place": "조명 ON/OFF 방법을 선택하세요.",
+        "group": "bd968ba9a2eb742c",
+        "order": 30,
+        "width": "8",
+        "height": 1,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "즉시 ON",
+                "value": 0,
+                "type": "num"
+            },
+            {
+                "label": "즉시 OFF",
+                "value": 1,
+                "type": "num"
+            },
+            {
+                "label": "예약 ON",
+                "value": 2,
+                "type": "num"
+            },
+            {
+                "label": "예약 OFF",
+                "value": 3,
+                "type": "num"
+            }
+        ],
+        "payload": "",
+        "topic": "payload",
+        "topicType": "msg",
+        "className": "",
+        "x": 1880,
+        "y": 2360,
+        "wires": [
+            [
+                "fe616d10c27ec16c"
+            ]
+        ]
+    },
+    {
+        "id": "7a6b4b6704e57ae1",
+        "type": "http request",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://203.250.32.29:3000/control/code",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 2130,
+        "y": 1400,
+        "wires": [
+            [
+                "80f5d0968a98d9aa"
+            ]
+        ]
+    },
+    {
+        "id": "80f5d0968a98d9aa",
+        "type": "debug",
+        "z": "2abf337b10e71ef9",
+        "name": "양액 제어기 즉시 공급 (debug)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2380,
+        "y": 1400,
+        "wires": []
+    },
+    {
+        "id": "59d22cfa2a3d5765",
+        "type": "http request",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://203.250.32.29:3000/control/code",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 2130,
+        "y": 1460,
+        "wires": [
+            [
+                "846e3f349cfe9d73"
+            ]
+        ]
+    },
+    {
+        "id": "846e3f349cfe9d73",
+        "type": "debug",
+        "z": "2abf337b10e71ef9",
+        "name": "양액 제어기 예약 공급 (debug)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2380,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "eb8d707ed7b8b59e",
+        "type": "http request",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://203.250.32.29:3000/control/code",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 2130,
+        "y": 1520,
+        "wires": [
+            [
+                "7e89ad1a2c41f7d7"
+            ]
+        ]
+    },
+    {
+        "id": "7e89ad1a2c41f7d7",
+        "type": "debug",
+        "z": "2abf337b10e71ef9",
+        "name": "양액 제어기 간격 공급 (debug)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2380,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "94ddf23eede637f2",
+        "type": "http request",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://203.250.32.29:3000/control/code",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 2130,
+        "y": 2060,
+        "wires": [
+            [
+                "96dacd7c195fe3e4"
+            ]
+        ]
+    },
+    {
+        "id": "96dacd7c195fe3e4",
+        "type": "debug",
+        "z": "2abf337b10e71ef9",
+        "name": "공기압 발생기 즉시 공급 (debug)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2390,
+        "y": 2060,
+        "wires": []
+    },
+    {
+        "id": "5f97e4036602e02e",
+        "type": "http request",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://203.250.32.29:3000/control/code",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 2130,
+        "y": 2120,
+        "wires": [
+            [
+                "8e2caba1fca2b241"
+            ]
+        ]
+    },
+    {
+        "id": "8e2caba1fca2b241",
+        "type": "debug",
+        "z": "2abf337b10e71ef9",
+        "name": "공기압 발생기 예약 공급 (debug)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2390,
+        "y": 2120,
+        "wires": []
+    },
+    {
+        "id": "13403e2ebcbf0d2f",
+        "type": "http request",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://203.250.32.29:3000/control/code",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 2130,
+        "y": 2180,
+        "wires": [
+            [
+                "1630916bb825a00c"
+            ]
+        ]
+    },
+    {
+        "id": "1630916bb825a00c",
+        "type": "debug",
+        "z": "2abf337b10e71ef9",
+        "name": "공기압 발생기 간격 공급 (debug)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2390,
+        "y": 2180,
+        "wires": []
+    },
+    {
+        "id": "89d73f941a6d7519",
+        "type": "http request",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://203.250.32.29:3000/control/code",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 2130,
+        "y": 2560,
+        "wires": [
+            [
+                "079933b736b3c9bf"
+            ]
+        ]
+    },
+    {
+        "id": "079933b736b3c9bf",
+        "type": "debug",
+        "z": "2abf337b10e71ef9",
+        "name": "조명 제어기 즉시 ON (debug)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2380,
+        "y": 2560,
+        "wires": []
+    },
+    {
+        "id": "45d1cb7992c44c81",
+        "type": "http request",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://203.250.32.29:3000/control/code",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 2130,
+        "y": 2620,
+        "wires": [
+            [
+                "94662d7d8ee8905e"
+            ]
+        ]
+    },
+    {
+        "id": "94662d7d8ee8905e",
+        "type": "debug",
+        "z": "2abf337b10e71ef9",
+        "name": "조명 제어기 즉시 OFF (debug)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2380,
+        "y": 2620,
+        "wires": []
+    },
+    {
+        "id": "31a7753d10de84ae",
+        "type": "http request",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://203.250.32.29:3000/control/code",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 2130,
+        "y": 2680,
+        "wires": [
+            [
+                "0e3f4d51caa35dc4"
+            ]
+        ]
+    },
+    {
+        "id": "0e3f4d51caa35dc4",
+        "type": "debug",
+        "z": "2abf337b10e71ef9",
+        "name": "조명 제어기 예약 ON (debug)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2380,
+        "y": 2680,
+        "wires": []
+    },
+    {
+        "id": "69424756928a25a9",
+        "type": "http request",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://203.250.32.29:3000/control/code",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 2130,
+        "y": 2740,
+        "wires": [
+            [
+                "fa4268a5b1fbbfcc"
+            ]
+        ]
+    },
+    {
+        "id": "fa4268a5b1fbbfcc",
+        "type": "debug",
+        "z": "2abf337b10e71ef9",
+        "name": "조명 제어기 예약 OFF (debug)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2380,
+        "y": 2740,
+        "wires": []
+    },
+    {
+        "id": "50b7ede0aad5175a",
+        "type": "http request",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://203.250.32.29:3000/control/code",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1910,
+        "y": 3100,
+        "wires": [
+            [
+                "d3e78af3f414a62b"
+            ]
+        ]
+    },
+    {
+        "id": "d3e78af3f414a62b",
+        "type": "debug",
+        "z": "2abf337b10e71ef9",
+        "name": "환경 데이터 전송 (debug)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2150,
+        "y": 3100,
+        "wires": []
+    },
+    {
+        "id": "3f9646fb2f1cea57",
+        "type": "comment",
+        "z": "2abf337b10e71ef9",
+        "name": "비상정지",
+        "info": "",
+        "x": 1490,
+        "y": 3200,
+        "wires": []
+    },
+    {
+        "id": "c9b84c0f5c2ef2a1",
+        "type": "ui_button",
+        "z": "2abf337b10e71ef9",
+        "name": "비상정지 버튼",
+        "group": "bd968ba9a2eb742c",
+        "order": 22,
+        "width": "2",
+        "height": 1,
+        "passthru": false,
+        "label": "비상정지",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "Red",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1510,
+        "y": 3240,
+        "wires": [
+            [
+                "17ba3bed6d1a5d4a"
+            ]
+        ]
+    },
+    {
+        "id": "17ba3bed6d1a5d4a",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "비상정지 전송",
+        "func": "msg.payload = {\n    \"code\": \"C_S_001\",\n    \"paramsDetail\": {\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1710,
+        "y": 3240,
+        "wires": [
+            [
+                "e34fa707be4ef4c3"
+            ]
+        ]
+    },
+    {
+        "id": "e34fa707be4ef4c3",
+        "type": "http request",
+        "z": "2abf337b10e71ef9",
+        "name": "",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://203.250.32.29:3000/control/code",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1910,
+        "y": 3240,
+        "wires": [
+            [
+                "8a723403516e505d"
+            ]
+        ]
+    },
+    {
+        "id": "8a723403516e505d",
+        "type": "debug",
+        "z": "2abf337b10e71ef9",
+        "name": "비상정지 전송 (debug)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2140,
+        "y": 3240,
+        "wires": []
+    },
+    {
+        "id": "538985d6f2d9a970",
+        "type": "debug",
+        "z": "2abf337b10e71ef9",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2500,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "89c4f585040d5fc4",
+        "type": "comment",
+        "z": "2abf337b10e71ef9",
+        "name": "양액 데이터 수신",
+        "info": "",
+        "x": 140,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "19014493dfbe31ab",
+        "type": "function",
+        "z": "2abf337b10e71ef9",
+        "name": "Query",
+        "func": "// 환경 데이터 배열에 저장\nmsg.payload = [\n    msg.payload.ph,\n    msg.payload.ec,\n    msg.time,\n];\n\n\n// 환경 데이터 저장\nmsg.topic = \"INSERT INTO nutrient_data (ph, ec, time) VALUES(?, ?, ?);\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 780,
+        "wires": [
+            [
+                "60c5f4e4541e772d"
+            ]
+        ]
+    },
+    {
+        "id": "60c5f4e4541e772d",
+        "type": "mysql",
+        "z": "2abf337b10e71ef9",
+        "mydb": "ca17075f8d3b3c1e",
+        "name": "DB",
+        "x": 670,
+        "y": 780,
+        "wires": [
+            [
+                "7d7fe5923aa7ba3b"
+            ]
+        ]
+    },
+    {
+        "id": "c91951054ccf1106",
+        "type": "moment",
+        "z": "2abf337b10e71ef9",
+        "name": "현재 시간",
+        "topic": "",
+        "input": "",
+        "inputType": "date",
+        "inTz": "Asia/Seoul",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "YYYY-MM-DD HH:mm:00",
+        "locale": "ko-KR",
+        "output": "time",
+        "outputType": "msg",
+        "outTz": "Asia/Seoul",
+        "x": 340,
+        "y": 780,
+        "wires": [
+            [
+                "19014493dfbe31ab"
+            ]
+        ]
+    },
+    {
+        "id": "7d7fe5923aa7ba3b",
+        "type": "debug",
+        "z": "2abf337b10e71ef9",
+        "name": "환경 데이터 DB 저장 (debug)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "2fb1331ded15f617",
+        "type": "mqtt in",
+        "z": "2abf337b10e71ef9",
+        "name": "양액 데이터 수신",
+        "topic": "nutrient_data",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "e02759af78813ba7",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 780,
+        "wires": [
+            [
+                "c91951054ccf1106"
+            ]
+        ]
+    },
+    {
+        "id": "3ed497e6ee44b2a1",
+        "type": "ui_spacer",
+        "z": "2abf337b10e71ef9",
+        "name": "spacer",
+        "group": "bd968ba9a2eb742c",
+        "order": 2,
+        "width": "2",
+        "height": "1"
+    },
+    {
+        "id": "9f520ffdf039a7cc",
+        "type": "ui_spacer",
+        "z": "2abf337b10e71ef9",
+        "name": "spacer",
+        "group": "bd968ba9a2eb742c",
+        "order": 21,
+        "width": "15",
+        "height": "1"
+    },
+    {
+        "id": "457b038bdf89f694",
+        "type": "ui_spacer",
+        "z": "2abf337b10e71ef9",
+        "name": "spacer",
+        "group": "bd968ba9a2eb742c",
+        "order": 14,
+        "width": "2",
+        "height": "1"
+    },
+    {
+        "id": "7e07ec75a699165c",
+        "type": "ui_spacer",
+        "z": "2abf337b10e71ef9",
+        "name": "spacer",
+        "group": "bd968ba9a2eb742c",
+        "order": 7,
+        "width": "2",
+        "height": "1"
+    },
+    {
+        "id": "83b4abe62fc02cab",
+        "type": "ui_spacer",
+        "z": "2abf337b10e71ef9",
+        "name": "spacer",
+        "group": "bd968ba9a2eb742c",
+        "order": 23,
+        "width": "32",
+        "height": "1"
+    },
+    {
+        "id": "412ce716334f969b",
+        "type": "ui_spacer",
+        "z": "2abf337b10e71ef9",
+        "name": "spacer",
+        "group": "bd968ba9a2eb742c",
+        "order": 37,
+        "width": "8",
+        "height": "1"
+    },
+    {
+        "id": "05e2e7bd4ea91c3e",
+        "type": "ui_spacer",
+        "z": "2abf337b10e71ef9",
+        "name": "spacer",
+        "group": "bd968ba9a2eb742c",
+        "order": 34,
+        "width": "24",
+        "height": "1"
+    },
+    {
+        "id": "76ab15e60f23bb59",
+        "type": "ui_spacer",
+        "z": "2abf337b10e71ef9",
+        "name": "spacer",
+        "group": "bd968ba9a2eb742c",
+        "order": 41,
+        "width": "8",
+        "height": "1"
+    },
+    {
+        "id": "6b8883a35c41352d",
+        "type": "ui_spacer",
+        "z": "2abf337b10e71ef9",
+        "name": "spacer",
+        "group": "bd968ba9a2eb742c",
+        "order": 57,
+        "width": "32",
+        "height": "1"
+    },
+    {
+        "id": "6cf41a74a8eb9444",
+        "type": "ui_spacer",
+        "z": "2abf337b10e71ef9",
+        "name": "spacer",
+        "group": "bd968ba9a2eb742c",
+        "order": 60,
+        "width": "1",
+        "height": "6"
+    },
+    {
+        "id": "16965f4ed03743e2",
+        "type": "ui_spacer",
+        "z": "2abf337b10e71ef9",
+        "name": "spacer",
+        "group": "bd968ba9a2eb742c",
+        "order": 62,
+        "width": "1",
+        "height": "6"
+    },
+    {
+        "id": "afb8aa36cdc5a57b",
+        "type": "ui_spacer",
+        "z": "2abf337b10e71ef9",
+        "name": "spacer",
+        "group": "bd968ba9a2eb742c",
+        "order": 65,
+        "width": "1",
+        "height": "6"
+    },
+    {
+        "id": "c4b8417a52eae47c",
+        "type": "ui_spacer",
+        "z": "2abf337b10e71ef9",
+        "name": "spacer",
+        "group": "bd968ba9a2eb742c",
+        "order": 67,
+        "width": "1",
+        "height": "6"
+    },
+    {
+        "id": "63ae743b779ff311",
+        "type": "ui_spacer",
+        "z": "2abf337b10e71ef9",
+        "name": "spacer",
+        "group": "bd968ba9a2eb742c",
+        "order": 70,
+        "width": "1",
+        "height": "6"
+    },
+    {
+        "id": "599bfe0a892f3a98",
+        "type": "ui_spacer",
+        "z": "2abf337b10e71ef9",
+        "name": "spacer",
+        "group": "bd968ba9a2eb742c",
+        "order": 72,
+        "width": "1",
+        "height": "6"
+    },
+    {
+        "id": "d2ce190f2a35c709",
+        "type": "ui_spacer",
+        "z": "2abf337b10e71ef9",
+        "name": "spacer",
+        "group": "bd968ba9a2eb742c",
+        "order": 31,
+        "width": "8",
+        "height": "1"
+    },
+    {
+        "id": "76f5319a2767733f",
+        "type": "ui_spacer",
+        "z": "2abf337b10e71ef9",
+        "name": "spacer",
+        "group": "bd968ba9a2eb742c",
+        "order": 38,
+        "width": "8",
+        "height": "1"
+    },
+    {
+        "id": "bd968ba9a2eb742c",
+        "type": "ui_group",
+        "name": "Group",
+        "tab": "522ab2dfa8517f53",
+        "order": 1,
+        "disp": false,
+        "width": "32",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "ca17075f8d3b3c1e",
+        "type": "MySQLdatabase",
+        "name": "aguni_server",
+        "host": "221.142.226.55",
+        "port": "3306",
+        "db": "aguni_server",
+        "tz": "+09:00",
+        "charset": "UTF8"
+    },
+    {
+        "id": "e02759af78813ba7",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "522ab2dfa8517f53",
+        "type": "ui_tab",
+        "name": "Ag-Uni",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
